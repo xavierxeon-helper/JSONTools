@@ -21,6 +21,7 @@ namespace JSONTools
       void write(const QString& key, const double& value, bool init = false);
       void write(const QString& key, bool value, bool init = false);
       void write(const QString& key, const QJsonObject& object, bool init = false);
+      void write(const QString& key, const QJsonArray& array, bool init = false);
 
       QVariant variant(const QString& key, const QVariant defaultValue = QVariant()) const;
       QVariantList variantList(const QString& key) const;
@@ -32,6 +33,7 @@ namespace JSONTools
       double real(const QString& key, const double defaultValue = 0.0) const;
       bool boolean(const QString& key, const bool defaultValue = false) const;
       QJsonObject object(const QString& key, const QJsonObject& defaultValue = QJsonObject()) const;
+      QJsonArray array(const QString& key) const;
 
    protected:
       virtual QJsonObject& contentRef() = 0;

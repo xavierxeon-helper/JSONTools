@@ -106,6 +106,14 @@ void JSONTools::AbstractSettings::write(const QString& key, const QJsonObject& o
    setValue(key, object);
 }
 
+void JSONTools::AbstractSettings::write(const QString& key, const QJsonArray& array, bool init)
+{
+   if (init && hasValue(key))
+      return;
+
+   setValue(key, array);
+}
+
 QVariant JSONTools::AbstractSettings::variant(const QString& key, const QVariant defaultValue) const
 {
    QJsonValue value = getValue(key);
@@ -207,6 +215,15 @@ QJsonObject JSONTools::AbstractSettings::object(const QString& key, const QJsonO
       return defaultValue;
 
    return value.toObject();
+}
+
+QJsonArray JSONTools::AbstractSettings::array(const QString& key) const
+{
+   QJsonValue value = getValue(key);
+   if (value.isNull())
+      return QJsonArray();
+
+   return value.toArray();
 }
 
 bool JSONTools::AbstractSettings::hasValue(const QString& key) const
