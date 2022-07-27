@@ -35,12 +35,13 @@ namespace JSONTools
       QJsonObject object(const QString& key, const QJsonObject& defaultValue = QJsonObject()) const;
       QJsonArray array(const QString& key) const;
 
+      bool hasValue(const QString& key) const;
+
    protected:
       virtual QJsonObject& contentRef() = 0;
       virtual const QJsonObject& content() const = 0;
 
    private:
-      bool hasValue(const QString& key) const;
       QJsonValue getValue(const QString& key) const;
       void setValue(const QString& key, const QJsonValue& value);
 
