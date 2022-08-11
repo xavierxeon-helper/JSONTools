@@ -14,19 +14,10 @@ QJsonObject JSONTools::Helper::load(const QString& fileName, QString* error)
       return QJsonObject();
    }
 
-   const QByteArray content = file.readAll();
+   const QByteArray data = file.readAll();
    file.close();
 
-   QJsonParseError parseError;
-   QJsonDocument doc = QJsonDocument::fromJson(content, &parseError);
-   if (QJsonParseError::NoError != parseError.error)
-   {
-      if (error)
-         *error = parseError.errorString();
-      return QJsonObject();
-   }
-
-   return doc.object();
+   return convert(data, error);
 }
 
 bool JSONTools::Helper::save(const QJsonObject& data, const QString& fileName)
@@ -43,6 +34,26 @@ bool JSONTools::Helper::save(const QJsonObject& data, const QString& fileName)
    file.close();
 
    return true;
+}
+
+QJsonObject JSONTools::Helper::convert(const QByteArray& data, QString* error)
+{
+   QJsonParseError parseError;
+   QJsonDocument doc = QJsonDocument::fromJson(data, &parseError);
+   if (QJsonParseError::NoError != parseError.error)
+   {
+      if (error)
+         *error = parseError.errorString();
+      return QJsonObject();
+   }
+
+   return doc.object();
+}
+
+QByteArray JSONTools::Helper::convert(const QJsonObject& object)
+{
+   const QByteArray data = QJsonDocument(object).toJson(QJsonDocument::Compact);
+   return data;
 }
 
 QStringList JSONTools::Helper::printable(const QJsonObject& object)
