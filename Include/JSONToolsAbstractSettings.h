@@ -29,7 +29,7 @@ namespace JSONTools
       QStringList stringList(const QString& key) const;
       QList<int> intList(const QString& key) const;
       QByteArray bytes(const QString& key, const QByteArray defaultValue = QByteArray()) const;
-      int integer(const QString& key, const int defaultValue = 0.0) const;
+      int integer(const QString& key, const int defaultValue = 0) const;
       double real(const QString& key, const double defaultValue = 0.0) const;
       bool boolean(const QString& key, const bool defaultValue = false) const;
       QJsonObject object(const QString& key, const QJsonObject& defaultValue = QJsonObject()) const;
